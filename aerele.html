@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .form-group button {
+            padding: 8px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Library Management System</h1>
+
+        <h2>Books</h2>
+        <div class="form-group">
+            <label for="book-name">Name:</label>
+            <input type="text" id="book-name">
+        </div>
+        <div class="form-group">
+            <label for="book-author">Author:</label>
+            <input type="text" id="book-author">
+        </div>
+        <div class="form-group">
+            <label for="book-stock">Stock:</label>
+            <input type="number" id="book-stock">
+        </div>
+        <button onclick="addBook()">Add Book</button>
+
+        <h2>Members</h2>
+        <div class="form-group">
+            <label for="member-name">Name:</label>
+            <input type="text" id="member-name">
+        </div>
+        <button onclick="addMember()">Add Member</button>
+
+        <h2>Transactions</h2>
+        <div class="form-group">
+            <label for="book-id">Book ID:</label>
+            <input type="text" id="book-id">
+        </div>
+        <div class="form-group">
+            <label for="member-id">Member ID:</label>
+            <input type="text" id="member-id">
+        </div>
+        <div class="form-group">
+            <label for="transaction-type">Transaction Type:</label>
+            <select id="transaction-type">
+                <option value="issue">Issue</option>
+                <option value="return">Return</option>
+            </select>
+        </div>
+        <button onclick="processTransaction()">Process Transaction</button>
+
+        <h2>Search Book</h2>
+        <div class="form-group">
+            <label for="search-name">Name:</label>
+            <input type="text" id="search-name">
+        </div>
+        <div class="form-group">
+            <label for="search-author">Author:</label>
+            <input type="text" id="search-author">
+        </div>
+        <button onclick="searchBook()">Search</button>
+
+        <h2>Outstanding Debt</h2>
+        <div class="form-group">
+            <label for="member-debt">Member ID:</label>
+            <input type="text" id="member-debt">
+        </div>
+        <button onclick="checkDebt()">Check Debt</button>
+
+        <h2>Books List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="books-list">
+                <!-- Books will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <h2>Members List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody id="members-list">
+                <!-- Members will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Sample data
+        let books = [
+            { id: 1, name: 'Book 1', author: 'Author 1', stock: 5 },
+            { id: 2, name: 'Book 2', author: 'Author 2', stock: 3 },
+        ];
+
+        let members = [
+            { id: 1, name: 'Member 1' },
+            { id: 2, name: 'Member 2' },
+        ];
+
+        // Function to add a book
+        function addBook() {
+            let name = document.getElementById('book-name').value;
+            let author = document.getElementById('book-author').value;
+            let stock = document.getElementById('book-stock').value;
+
+            let id = books.length + 1;
+
+            let book = { id, name, author, stock };
+            books.push(book);
+
+            // Update the books list
+            let booksList = document.getElementById('books-list');
+            let row = booksList.insertRow();
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${author}</td>
+                <td>${stock}</td>
+            `;
+        }
+
+        // Function to add a member
+        function addMember() {
+            let name = document.getElementById('member-name').value;
+            let id = members.length + 1;
+
+            let member = { id, name };
+            members.push(member);
+
+            // Update the members list
+            let membersList = document.getElementById('members-list');
+            let row = membersList.insertRow();
+            row.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+            `;
+        }
+
+        // Function to process a transaction
+        function processTransaction() {
+            let bookId = document.getElementById('book-id').value;
+            let memberId = document.getElementById('member-id').value;
+            let transactionType = document.getElementById('transaction-type').value;
+
+            // Process the transaction based on type (issue or return)
+            if (transactionType === 'issue') {
+                // Code to issue a book to a member
+                console.log(`Book ${bookId} issued to member ${memberId}`);
+            } else if (transactionType === 'return') {
+                // Code to return a book from a member
+                console.log(`Book ${bookId} returned from member ${memberId}`);
+            }
+        }
+
+        // Function to search for a book by name and author
+        function searchBook() {
+            let name = document.getElementById('search-name').value;
+            let author = document.getElementById('search-author').value;
+
+            // Code to search for a book by name and author
+            console.log(`Searching for book with name: ${name} and author: ${author}`);
+        }
+
+        // Function to check a member's outstanding debt
+        function checkDebt() {
+            let memberId = document.getElementById('member-debt').value;
+
+            // Code to check a member's outstanding debt
+            console.log(`Checking outstanding debt for member: ${memberId}`);
+        }
+    </script>
+</body>
+</html>
