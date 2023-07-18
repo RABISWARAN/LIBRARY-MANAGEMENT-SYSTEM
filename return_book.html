@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Return Book</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <h1>Return Book</h1>
+    <form action="{{ url_for('return_book', id=transaction.id) }}" method="post">
+        <div class="form-group">
+            <label for="book_name">Book Name:</label>
+            <input type="text" id="book_name" name="book_name" value="{{ transaction.book.name }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="member_name">Member Name:</label>
+            <input type="text" id="member_name" name="member_name" value="{{ transaction.member.name }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="date_issued">Date Issued:</label>
+            <input type="date" id="date_issued" name="date_issued" value="{{ transaction.date_issued }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="date_returned">Date Returned:</label>
+            <input type="date" id="date_returned" name="date_returned" required>
+        </div>
+        <div class="form-group">
+            <label for="rent_fee">Rent Fee:</label>
+            <input type="number" id="rent_fee" name="rent_fee" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Return Book">
+        </div>
+    </form>
+</body>
+</html>

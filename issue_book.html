@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue Book</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+    <h1>Issue Book</h1>
+    <form action="{{ url_for('issue_book') }}" method="post">
+        <div class="form-group">
+            <label for="book_id">Book:</label>
+            <select id="book_id" name="book_id" required>
+                {% for book in books %}
+                    <option value="{{ book.id }}">{{ book.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="member_id">Member:</label>
+            <select id="member_id" name="member_id" required>
+                {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date_issued">Date Issued:</label>
+            <input type="date" id="date_issued" name="date_issued" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Issue Book">
+        </div>
+    </form>
+</body>
+</html>
